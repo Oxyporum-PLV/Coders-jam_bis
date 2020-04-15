@@ -10,12 +10,11 @@ public class CharacterController : MonoBehaviour
 
     [Space]
     [Header("Stats")]
-    public float speed = 5f;
-    [Range(1, 10)]
+    public float speed;
     public float jumpVelocity;
-    public float slideSpeed = 5f;
-    public float wallJumpLerp = 3f;
-    public float dashSpeed = 7f;
+    public float slideSpeed;
+    public float wallJumpLerp;
+    public float dashSpeed;
 
     [Space]
     [Header("Booleans")]
@@ -26,6 +25,7 @@ public class CharacterController : MonoBehaviour
     public bool isDashing;
 
     [Space]
+
     private bool groundTouch;
     private bool hasDashed;
 
@@ -50,7 +50,7 @@ public class CharacterController : MonoBehaviour
 
         Walk(dir);
 
-        if (coll.onWall && Input.GetButton("WallGrab"))
+        if (coll.onWall && Input.GetButton("WallGrab") && canMove)
         {
             wallGrab = true;
             wallSlide = false;
@@ -59,13 +59,13 @@ public class CharacterController : MonoBehaviour
         if (Input.GetButtonUp("WallGrab") || !coll.onWall || !canMove)
         {
             wallGrab = false;
-            wallSlide = true;
+            wallSlide = false;
         }
 
         if (coll.onGround && !isDashing)
         {
             wallJumped = false;
-            wallSlide = false;
+            GetComponent<BetterJump>().enabled = true;
         }
 
         if (wallGrab && !isDashing)
@@ -94,7 +94,7 @@ public class CharacterController : MonoBehaviour
             }
         }
 
-        if (!coll.onWall && coll.onGround)
+        if (!coll.onWall || coll.onGround)
         {
             wallSlide = false;
         }
@@ -114,7 +114,13 @@ public class CharacterController : MonoBehaviour
                 Dash(xRaw, yRaw);
         }
 
-        if ( coll.onGround && ! groundTouch)
+        if (coll.onGround && !groundTouch)
+        {
+            GroundTouch();
+            groundTouch = true;
+        }
+
+        if (!coll.onGround && groundTouch)
         {
             groundTouch = false;
         }
@@ -201,7 +207,7 @@ public class CharacterController : MonoBehaviour
 
         bool pushingWall = false;
 
-        if ((rb.velocity.x >0 && coll.onRightWall) || (rb.velocity.x < 0 && coll.onLeftWall))
+        if ((rb.velocity.x > 0 && coll.onRightWall) || (rb.velocity.x < 0 && coll.onLeftWall))
         {
             pushingWall = true;
         }
@@ -227,7 +233,7 @@ public class CharacterController : MonoBehaviour
     private void Jump(Vector2 dir, bool wall)
     {
         rb.velocity = new Vector2(rb.velocity.x, 0);
-        rb.velocity += Vector2.up * jumpVelocity;
+        rb.velocity += dir * jumpVelocity;
     }
 
     IEnumerator DisableMovement(float time)
