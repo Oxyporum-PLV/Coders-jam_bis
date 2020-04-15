@@ -6,48 +6,59 @@ public class CharacterController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    public float speed = 5f;
+    [Range(1, 10)]
+    public float jumpVelocity;
 
-    public float speed = 2.0f;
-    private int jumpCount = 1;
-    private int currentJumps;
-    private int dashCount = 0;
+    private bool wallGrab = false;
 
-    public bool canWallJump = false;
-
-
-
-    // Start is called beore the first frame update
     void Start()
     {
-        rb = this.GetComponent<Rigidbody2D>();
-        currentJumps = jumpCount;
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q)) {
-            Debug.Log("Je vais à droite");
-            
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        Vector2 dir = new Vector2(x, y);
+
+        Walk(dir);
+
+        wallGrab = CollabProxy.onWall && Input.GetKey(KeyCode.LeftShift);
+
+        if (wallGrab)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, y * speed);
         }
 
-        else if (Input.GetKey(KeyCode.D)) {
-            Debug.Log("Je vais à Gauche");
-            
+        if (CollabProxy.onWall && !CollabProxy.onGround)
+        {
+            WallSlide();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space && currentJumps > 0)) {
-            Debug.Log("Je vais sauter");
-            Jumping();
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (CollabProxy.onGround)
+            {
+                Jump();
+            }
         }
-
     }
 
-    void Jumping() {
-
+    private void WallSlide()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, -current_slide_speed);
     }
 
-    void onTriggerEnter2D(collider other) {
+    private void Walk(Vector2 dir)
+    {
+        rb.velocity = (new Vector2(dir.x * speed, rb.velocity.y));
+    }
 
+    private void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, 0);
+        rb.velocity += Vector2.up * jumpVelocity;
     }
 }
