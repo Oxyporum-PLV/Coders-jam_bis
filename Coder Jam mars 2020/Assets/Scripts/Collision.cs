@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
+    [Header("Layers")]
     public LayerMask groundLayer;
 
-    private bool onGround = false;
-    private bool onWall = false;
+    [Space]
+
+    public bool onGround;
+    public bool onWall;
+    public bool onRightWall;
+    public bool onLeftWall;
+    public int wallSlide;
+
+    [Space]
+
 
     [Header("Collision")]
 
@@ -26,7 +35,12 @@ public class Collision : MonoBehaviour
     {
         onGround = Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
         onWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer)
-            || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer); ;
+            || Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
+
+        onRightWall = Physics2D.OverlapCircle((Vector2)transform.position + rightOffset, collisionRadius, groundLayer);
+        onLeftWall = Physics2D.OverlapCircle((Vector2)transform.position + leftOffset, collisionRadius, groundLayer);
+
+        wallSlide = onRightWall ? -1 : 1;
     }
 
     void OnDrawGizmos()
