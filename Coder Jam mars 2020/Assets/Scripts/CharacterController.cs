@@ -247,6 +247,4 @@ public class CharacterController : MonoBehaviour
     {
         rb.drag = x;
     }
-
-
 }

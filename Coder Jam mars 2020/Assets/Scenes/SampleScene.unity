@@ -144,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261154252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.938, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1414183044}
@@ -177,8 +177,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546587259}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.661, y: 0.747, z: 0}
-  m_LocalScale: {x: 1, y: 23.212, z: 1}
+  m_LocalPosition: {x: -2.394, y: 0.345, z: 0}
+  m_LocalScale: {x: 1, y: 38.2998, z: 1}
   m_Children: []
   m_Father: {fileID: 1140432480}
   m_RootOrder: 0
@@ -375,8 +375,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 868475947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.898, y: 0.747, z: 0}
-  m_LocalScale: {x: 1, y: 23.212, z: 1}
+  m_LocalPosition: {x: 2.38, y: 0.747, z: 0}
+  m_LocalScale: {x: 1, y: 42.65205, z: 1}
   m_Children: []
   m_Father: {fileID: 1140432480}
   m_RootOrder: 1
@@ -571,8 +571,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -678,7 +678,7 @@ Transform:
   m_GameObject: {fileID: 1414183043}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.191, z: 0}
-  m_LocalScale: {x: 32.825, y: 1, z: 1}
+  m_LocalScale: {x: 51.289062, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 261154253}
   m_RootOrder: 0
@@ -772,6 +772,7 @@ GameObject:
   - component: {fileID: 1815772704}
   - component: {fileID: 1815772705}
   - component: {fileID: 1815772706}
+  - component: {fileID: 1815772707}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -794,7 +795,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -903,3 +904,20 @@ MonoBehaviour:
   bottomOffset: {x: 0, y: -0.06}
   rightOffset: {x: -0.06, y: 0}
   leftOffset: {x: 0.06, y: 0}
+--- !u!114 &1815772707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815772700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488ef6d4513953e4384c367a53984351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LinePrefab: {fileID: 2298227806901791724, guid: 56f0a639f761e864f9ebf566c8f75727,
+    type: 3}
+  currentLine: {fileID: 0}
+  lineRend: {fileID: 0}
+  LiPlayerPosition: []
