@@ -45,7 +45,7 @@ public class Collision : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
 
         var position = new Vector2[] { bottomOffset, rightOffset, leftOffset };
 
