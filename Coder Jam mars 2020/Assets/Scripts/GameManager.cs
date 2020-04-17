@@ -7,11 +7,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Capsule Instantiation")]
-    [SerializeField] private GameObject CapsulColor = null;
+    [SerializeField] private List<GameObject> LiObjectColor = new List<GameObject>();
     [SerializeField] private float MinDurationInstantiation = 5f;
     [SerializeField] private float MaxDurationInstantiation = 10f;
     private float currentDurationInstantiation;
     private float delay = 0f;
+    [HideInInspector] public int IdLayer = 1000;
 
 
     [Header("Corner Zone")]
@@ -41,8 +42,7 @@ public class GameManager : MonoBehaviour
         {
             float randomX = Random.Range(LeftBot.transform.position.x, RightTop.transform.position.x);
             float randomY = Random.Range(LeftBot.transform.position.y, RightTop.transform.position.y);
-            Instantiate(CapsulColor, new Vector3(randomX, randomY, 0f), Quaternion.identity);
-
+            Instantiate(LiObjectColor[Random.Range(0, LiObjectColor.Count)], new Vector3(randomX, randomY, 0f), Quaternion.identity);
             currentDurationInstantiation = Random.Range(MinDurationInstantiation, MaxDurationInstantiation);
             delay = 0f;
         }
