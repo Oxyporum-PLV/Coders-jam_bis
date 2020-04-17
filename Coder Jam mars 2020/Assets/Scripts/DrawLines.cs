@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class DrawLines : MonoBehaviour
 {
-    [SerializeField] private GameObject LinePrefab;
+    public GameObject LinePrefab;
     private GameObject currentLine;
 
     private LineRenderer lineRend;
     private List<Vector2> LiPlayerPosition = new List<Vector2>();
 
+    [HideInInspector] public bool changeLineColor = false;
+    [HideInInspector] public Color lineRendColor;
+    private List<Material> liMaterial = new List<Material>();
+    private int idNewLine = 0;
 
     void Start()
     {
@@ -27,13 +31,25 @@ public class DrawLines : MonoBehaviour
         }
     }
 
-    private void CreateLine()
+    public void CreateLine()
     {
         currentLine = Instantiate(LinePrefab, Vector3.zero, Quaternion.identity);
         lineRend = currentLine.GetComponent<LineRenderer>();
         LiPlayerPosition.Clear();
         LiPlayerPosition.Add(transform.position);
         LiPlayerPosition.Add(transform.position);
+
+        if (changeLineColor)
+        {
+            Material currentMat = lineRend.material;
+            currentMat.color = lineRendColor;
+            liMaterial.Add(currentMat);
+            lineRend.material = liMaterial[idNewLine];
+            idNewLine++;
+            lineRend.sortingOrder = idNewLine;
+            changeLineColor = false;
+        }
+
         lineRend.SetPosition(0, LiPlayerPosition[0]);
         lineRend.SetPosition(1, LiPlayerPosition[1]);
     }
